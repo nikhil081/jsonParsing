@@ -52,15 +52,20 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
+                    int i = 0;
+                    while(i<=jsonArray.length()){
 
-                    for(int i = 0; i<= jsonArray.length(); i++)
-                    {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String name = jsonObject.getString("name");
                         String email = jsonObject.getString("email");
                         Listitem listitem = new Listitem(name,email);
                         listitems.add(listitem);
-
+                        if(name!=null||email!=null)
+                        {
+                            name = null;
+                            email = null;
+                        }
+                        i++;
                     }
 
 
@@ -72,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this,error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"fuck you", Toast.LENGTH_SHORT).show();
             }
         });
         Volley.newRequestQueue(this).add(stringRequest);
